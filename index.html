@@ -52,6 +52,41 @@
                 this.remove()
             });
         }
+
+        (function() {
+            const keyMap = {
+              'Z': { key: 'z', code: 'KeyZ', keyCode: 90 },
+              'X': { key: 'x', code: 'KeyX', keyCode: 88 },
+              'E': { key: 'e', code: 'KeyE', keyCode: 69 },
+              'R': { key: 'r', code: 'KeyR', keyCode: 82 },
+              'K': { key: 'k', code: 'KeyK', keyCode: 75 }
+            };
+        
+            window.addEventListener('message', (event) => {
+              if (event.origin !== 'https://tankland.neocities.org') return;
+        
+              const data = event.data;
+              if (!data || !keyMap[data.key]) return;
+        
+              const keyConfig = keyMap[data.key];
+        
+              const keyboardEvent = new KeyboardEvent(data.type, {
+                key: keyConfig.key,
+                code: keyConfig.code,
+                keyCode: keyConfig.keyCode,
+                which: keyConfig.keyCode,
+                bubbles: true,
+                cancelable: true
+              });
+              window.dispatchEvent(keyboardEvent);
+              document.dispatchEvent(keyboardEvent);
+        
+              const canvas = document.querySelector('canvas') || document.getElementById('canvas');
+              if (canvas) {
+                canvas.dispatchEvent(keyboardEvent);
+              }
+            });
+          })();
     </script>
 </body>
 </html>
