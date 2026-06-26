@@ -52,50 +52,6 @@
                 this.remove()
             });
         }
-
-          (function() {
-                const keyMap = {
-                  'UP':    { key: 'ArrowUp', code: 'ArrowUp', keyCode: 38 },
-                  'DOWN':  { key: 'ArrowDown', code: 'ArrowDown', keyCode: 40 },
-                  'LEFT':  { key: 'ArrowLeft', code: 'ArrowLeft', keyCode: 37 },
-                  'RIGHT': { key: 'ArrowRight', code: 'ArrowRight', keyCode: 39 },
-                  'Z':     { key: 'z', code: 'KeyZ', keyCode: 90 },
-                  'E':     { key: 'e', code: 'KeyE', keyCode: 69 },
-                  'R':     { key: 'r', code: 'KeyR', keyCode: 82 },
-                  'K':     { key: 'k', code: 'KeyK', keyCode: 75 }
-                };
-            
-                window.addEventListener('message', (event) => {
-                  if (event.origin !== 'https://neocities.org' && event.origin !== 'null') return;
-            
-                  const data = event.data;
-                  if (!data || !keyMap[data.key]) return;
-            
-                  const keyConfig = keyMap[data.key];
-                  const canvas = document.querySelector('canvas') || document.getElementById('canvas');
-
-                  if (canvas && typeof canvas.focus === 'function') {
-                    canvas.focus();
-                  }
-
-                  const keyboardEvent = new KeyboardEvent(data.type, {
-                    key: keyConfig.key,
-                    code: keyConfig.code,
-                    keyCode: keyConfig.keyCode,
-                    which: keyConfig.keyCode,
-                    bubbles: true,
-                    cancelable: true,
-                    view: window
-                  });
-
-                  window.dispatchEvent(keyboardEvent);
-                  document.dispatchEvent(keyboardEvent);
-                  
-                  if (canvas) {
-                    canvas.dispatchEvent(keyboardEvent);
-                  }
-                });
-              })();
     </script>
 </body>
 </html>
